@@ -5,18 +5,25 @@ import React from 'react';
 import './menu-item.component.interface'
 import { Myprops } from './menu-item.component.interface';
 import './menu-item.components.style.scss'
+import { BrowserRouter, Route, Link, RouteComponentProps } from "react-router-dom";      
+import { withRouter } from 'react-router-dom';
 
 
 // import "/my-shop/src/components/menu-item/menu-item.components.style.scss"
 
 
-const MenuItem:React.FC <Myprops>= ({title,imageUrl,size}) => 
+const MenuItem:React.FC <Myprops & RouteComponentProps>= ({title,imageUrl,size,history,linkUrl,match}) => 
 <div style=
 {{
     backgroundImage:`url(${imageUrl})`
     
 }} 
-className= {`${size} menu-item`}>
+className= {`${size} menu-item`} onClick={() =>  
+
+history.push(`${match.url}${linkUrl}`)
+
+
+} >
     <div className="background-image"
      style=
      {{
@@ -26,8 +33,9 @@ className= {`${size} menu-item`}>
     />
     <div className="content">
         <h1 className="title"> {title}</h1>
-        <span className="subtitle"> EAT NOW PAY LATER </span>
+        <span className="subtitle"> EAT NOW PAY LATER </span><br />
+        <span  className="Shop"> SHOP NOW </span>
     </div>
 </div>
 
-export default MenuItem;
+export default withRouter(MenuItem);
